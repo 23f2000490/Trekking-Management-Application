@@ -1,77 +1,6 @@
-# 🏔️ Trekking Management Application
-
-A full-stack role-based web application for managing trekking activities, 
-built with Flask, Jinja2, Bootstrap, and SQLite as part of the Modern 
-Application Development I (MAD-I) course project.
-
-The system supports three roles — **Admin**, **Trek Staff**, and **User 
-(Trekker)** — enabling trek creation and approval, staff assignment, 
-slot-based trek bookings, and complete trekking history tracking, while 
-preventing overbooking and unauthorized access.
-
 ---
 
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Backend | Flask |
-| Templating | Jinja2 |
-| Frontend | HTML, CSS, Bootstrap |
-| Database | SQLite (via Flask-SQLAlchemy ORM) |
-| Auth | Flask-Login, Werkzeug (password hashing) |
-
----
-
-## 👥 Roles & Functionalities
-
-### Admin (pre-existing, no registration)
-- Create, edit, remove treks
-- Approve or blacklist trek staff
-- Assign staff to treks
-- View all users, staff, and treks
-- Search treks/staff/users by name or ID
-- View all bookings and trekking history
-
-### Trek Staff (self-register, needs Admin approval)
-- Register and log in (after approval)
-- View treks assigned by Admin
-- Update available slots and trek status
-- View registered participants per trek
-- Mark treks as started/completed
-
-### User / Trekker (self-register)
-- Register and log in
-- View available/open treks
-- Search and filter by difficulty/location
-- Book treks and track booking status
-- View trekking history
-
----
-
-## 📂 Project Structure
-Trekking-Management-Application/
-│
-├── app.py # Main Flask app entry point
-├── config.py # App configuration (DB URI, secret key)
-├── models.py # SQLAlchemy models (User, Trek, Booking, StaffProfile)
-├── create_admin.py # Script to create DB tables + pre-existing Admin
-├── requirements.txt # Python dependencies
-├── .gitignore
-├── README.md
-│
-├── instance/ # SQLite DB (auto-generated, git-ignored)
-│
-├── templates/ # Jinja2 HTML templates
-│ └── base.html
-│
-└── static/
-└── css/
-└── style.css
-
----
-
-## 🗄️ Database Schema (Milestone 1)
+## 🗄️ Database Schema
 
 ### User
 Stores login credentials and role for all 3 user types.
@@ -150,9 +79,7 @@ python create_admin.py
 python app.py
 ```
 
-Default Admin login (for local testing):
-- **Email:** admin@trekapp.com
-- **Password:** admin123
+Then open **http://127.0.0.1:5000** in your browser.
 
-
+---
 
