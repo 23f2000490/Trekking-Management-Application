@@ -83,3 +83,16 @@ Then open **http://127.0.0.1:5000** in your browser.
 
 ---
 
+## Test Credentials 
+
+Admin 
+Email : admin@trekapp.com
+password : admin123
+
+Staff :
+Email: staff1@gmail.com
+passowrd : 12345
+
+User
+Email : 23f2000490@ds.study.iitm.ac.in
+password : 12345
