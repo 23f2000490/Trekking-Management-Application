@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Manage Users (Trekkers)</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">← Back to Dashboard</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.contact or "-" }}</td>
+            <td>
+                {% if user.is_blacklisted %}
+                    <span class="badge bg-danger">Blacklisted</span>
+                {% else %}
+                    <span class="badge bg-success">Active</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if user.is_blacklisted %}
+                <form action="{{ url_for('admin.unblacklist_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-success">Un-blacklist</button>
+                </form>
+                {% else %}
+                <form action="{{ url_for('admin.blacklist_user', user_id=user.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Blacklist this user?');">
+                    <button type="submit" class="btn btn-sm btn-danger">Blacklist</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center">No users registered yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

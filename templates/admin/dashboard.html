@@ -1,6 +1,77 @@
 {% extends "base.html" %}
 {% block title %}Admin Dashboard{% endblock %}
+
 {% block content %}
-<h2>Admin Dashboard</h2>
-<p>Welcome, Admin! (Full dashboard coming in Milestone 3)</p>
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Treks</h6>
+                <h3>{{ total_treks }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Trekkers</h6>
+                <h3>{{ total_users }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Staff</h6>
+                <h3>{{ total_staff }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Bookings</h6>
+                <h3>{{ total_bookings }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a href="{{ url_for('admin.manage_treks') }}" class="btn btn-primary btn-sm">Manage Treks</a>
+    <a href="{{ url_for('admin.manage_staff') }}" class="btn btn-secondary btn-sm">Manage Staff</a>
+    <a href="{{ url_for('admin.manage_users') }}" class="btn btn-secondary btn-sm">Manage Users</a>
+    <button class="btn btn-secondary btn-sm" disabled>View Bookings</button>
+</div>
+
+<h4>Recent Bookings</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>User</th>
+            <th>Trek</th>
+            <th>Booking Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in recent_bookings %}
+        <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.user.name }}</td>
+            <td>{{ booking.trek.name }}</td>
+            <td>{{ booking.booking_date.strftime('%d %b %Y') }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No bookings yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
