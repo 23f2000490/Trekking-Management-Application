@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Search</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">← Back to Dashboard</a>
+</div>
+
+<form method="GET" action="{{ url_for('admin.search') }}" class="row g-2 mb-4">
+    <div class="col-md-3">
+        <select name="type" class="form-select">
+            <option value="treks" {% if search_type == "treks" %}selected{% endif %}>Treks</option>
+            <option value="staff" {% if search_type == "staff" %}selected{% endif %}>Staff</option>
+            <option value="users" {% if search_type == "users" %}selected{% endif %}>Users</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <input type="text" name="q" class="form-control" placeholder="Search by name or ID..." value="{{ query }}">
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+</form>
+
+{% if query %}
+    {% if search_type == "treks" %}
+        <h5>Trek Results</h5>
+        <table class="table table-bordered table-striped">
+            <thead><tr><th>ID</th><th>Name</th><th>Location</th><th>Status</th></tr></thead>
+            <tbody>
+                {% for trek in trek_results %}
+                <tr><td>{{ trek.id }}</td><td>{{ trek.name }}</td><td>{{ trek.location }}</td><td>{{ trek.status }}</td></tr>
+                {% else %}
+                <tr><td colspan="4" class="text-center">No treks found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif search_type == "staff" %}
+        <h5>Staff Results</h5>
+        <table class="table table-bordered table-striped">
+            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Status</th></tr></thead>
+            <tbody>
+                {% for staff in staff_results %}
+                <tr><td>{{ staff.id }}</td><td>{{ staff.user.name }}</td><td>{{ staff.user.email }}</td><td>{{ staff.status }}</td></tr>
+                {% else %}
+                <tr><td colspan="4" class="text-center">No staff found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif search_type == "users" %}
+        <h5>User Results</h5>
+        <table class="table table-bordered table-striped">
+            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Status</th></tr></thead>
+            <tbody>
+                {% for user in user_results %}
+                <tr><td>{{ user.id }}</td><td>{{ user.name }}</td><td>{{ user.email }}</td><td>{{ "Blacklisted" if user.is_blacklisted else "Active" }}</td></tr>
+                {% else %}
+                <tr><td colspan="4" class="text-center">No users found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endif %}
+{% endblock %}

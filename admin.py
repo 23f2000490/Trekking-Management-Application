@@ -205,3 +205,45 @@ def unblacklist_user(user_id):
     db.session.commit()
     flash(f"{user.name} has been un-blacklisted.", "success")
     return redirect(url_for("admin.manage_users"))
+
+@admin_bp.route("/search", methods=["GET"])
+@login_required
+@admin_required
+def search():
+    query = request.args.get("q", "").strip()
+    search_type = request.args.get("type", "treks")
+
+    trek_results = []
+    staff_results = []
+    user_results = []
+
+    if query:
+        if search_type == "treks":
+            trek_results = Trek.query.filter(
+                (Trek.name.ilike(f"%{query}%")) | (Trek.id == query if query.isdigit() else False)
+            ).all()
+        elif search_type == "staff":
+            staff_results = StaffProfile.query.join(User).filter(
+                (User.name.ilike(f"%{query}%")) | (StaffProfile.id == query if query.isdigit() else False)
+            ).all()
+        elif search_type == "users":
+            user_results = User.query.filter(
+                User.role == "Trekker",
+                (User.name.ilike(f"%{query}%")) | (User.id == query if query.isdigit() else False)
+            ).all()
+
+    return render_template(
+        "admin/search.html",
+        query=query,
+        search_type=search_type,
+        trek_results=trek_results,
+        staff_results=staff_results,
+        user_results=user_results
+    )
+
+@admin_bp.route("/bookings")
+@login_required
+@admin_required
+def view_bookings():
+    bookings = Booking.query.order_by(Booking.booking_date.desc()).all()
+    return render_template("admin/view_bookings.html", bookings=bookings)

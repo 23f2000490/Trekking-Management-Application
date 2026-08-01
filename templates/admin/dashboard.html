@@ -39,11 +39,12 @@
     </div>
 </div>
 
-<div class="mb-3">
-    <a href="{{ url_for('admin.manage_treks') }}" class="btn btn-primary btn-sm">Manage Treks</a>
-    <a href="{{ url_for('admin.manage_staff') }}" class="btn btn-secondary btn-sm">Manage Staff</a>
-    <a href="{{ url_for('admin.manage_users') }}" class="btn btn-secondary btn-sm">Manage Users</a>
-    <button class="btn btn-secondary btn-sm" disabled>View Bookings</button>
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <a href="{{ url_for('admin.manage_treks') }}" class="btn btn-outline-primary">Manage Treks</a>
+    <a href="{{ url_for('admin.manage_staff') }}" class="btn btn-outline-primary">Manage Staff</a>
+    <a href="{{ url_for('admin.manage_users') }}" class="btn btn-outline-primary">Manage Users</a>
+    <a href="{{ url_for('admin.view_bookings') }}" class="btn btn-outline-primary">View Bookings</a>
+    <a href="{{ url_for('admin.search') }}" class="btn btn-outline-primary">Search</a>
 </div>
 
 <h4>Recent Bookings</h4>
