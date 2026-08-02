@@ -1,6 +1,65 @@
 {% extends "base.html" %}
 {% block title %}Staff Dashboard{% endblock %}
+
 {% block content %}
-<h2>Trek Staff Dashboard</h2>
-<p>Welcome, {{ current_user.name }}! (Full dashboard coming in Milestone 4)</p>
+<h2 class="mb-4">My Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Assigned Treks</h6>
+                <h3>{{ total_assigned }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Participants</h6>
+                <h3>{{ total_participants }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Open Treks</h6>
+                <h3>{{ open_treks }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>My Assigned Treks</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Trek Name</th>
+            <th>Location</th>
+            <th>Participants</th>
+            <th>Slots</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for trek in assigned_treks %}
+        <tr>
+            <td>{{ trek.name }}</td>
+            <td>{{ trek.location }}</td>
+            <td>{{ trek.bookings|length }}</td>
+            <td>{{ trek.available_slots }} / {{ trek.total_slots }}</td>
+            <td>{{ trek.status }}</td>
+            <td>
+                <a href="{{ url_for('staff.manage_trek', trek_id=trek.id) }}" class="btn btn-sm btn-primary">Manage</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6" class="text-center">No treks assigned yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
