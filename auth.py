@@ -83,7 +83,7 @@ def login():
         elif user.role == "Staff":
             return redirect(url_for("staff.dashboard"))
         else:
-            return redirect(url_for("auth.user_dashboard"))
+            return redirect(url_for("user.dashboard"))
 
     return render_template("login.html")
 
@@ -96,10 +96,3 @@ def logout():
     return redirect(url_for("auth.login"))
 
 
-@auth_bp.route("/user/dashboard")
-@login_required
-def user_dashboard():
-    if current_user.role != "Trekker":
-        flash("Access denied.", "danger")
-        return redirect(url_for("auth.login"))
-    return render_template("user/dashboard.html")
