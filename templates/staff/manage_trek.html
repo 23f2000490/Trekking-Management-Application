@@ -9,6 +9,7 @@
 
 <div class="row mb-4">
     <div class="col-md-6">
+        <div class="table-responsive">
         <table class="table table-bordered">
             <tr><th>Location</th><td>{{ trek.location }}</td></tr>
             <tr><th>Difficulty</th><td>{{ trek.difficulty }}</td></tr>
@@ -17,6 +18,7 @@
             <tr><th>End Date</th><td>{{ trek.end_date.strftime('%d %b %Y') }}</td></tr>
             <tr><th>Total Slots</th><td>{{ trek.total_slots }}</td></tr>
         </table>
+        </div>
     </div>
     <div class="col-md-6">
         <form method="POST">
@@ -38,6 +40,7 @@
 </div>
 
 <h4>Participants ({{ participants|length }})</h4>
+<div class="table-responsive">
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -62,4 +65,5 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}

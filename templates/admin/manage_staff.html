@@ -28,6 +28,7 @@
 <div class="tab-content">
     <!-- PENDING TAB -->
     <div class="tab-pane fade show active" id="pending">
+        <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -59,10 +60,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
     </div>
 
     <!-- APPROVED TAB -->
     <div class="tab-pane fade" id="approved">
+        <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -91,10 +94,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
     </div>
 
     <!-- BLACKLISTED TAB -->
     <div class="tab-pane fade" id="blacklisted">
+        <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -123,6 +128,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 {% endblock %}

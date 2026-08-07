@@ -1,0 +1,16 @@
+/* Responsive table wrapper fallback */
+.table {
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.85rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    .card h3 {
+        font-size: 1.5rem;
+    }
+}

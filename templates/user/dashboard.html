@@ -7,7 +7,7 @@
 <h4>Available Treks</h4>
 
 <form method="GET" class="row g-2 mb-4">
-    <div class="col-md-3">
+    <div class="col-6 col-md-3">
         <select name="difficulty" class="form-select">
             <option value="">All Difficulties</option>
             {% for level in ["Easy", "Moderate", "Hard"] %}
@@ -15,7 +15,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-md-3">
         <select name="location" class="form-select">
             <option value="">All Locations</option>
             {% for loc in all_locations %}
@@ -23,11 +23,12 @@
             {% endfor %}
         </select>
     </div>
-    <div class="col-md-3">
+    <div class="col-12 col-md-3">
         <button type="submit" class="btn btn-primary w-100">Filter</button>
     </div>
 </form>
 
+<div class="table-responsive">
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -58,15 +59,17 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
-<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+<div class="d-flex flex-wrap justify-content-between align-items-center mt-4 mb-3 gap-2">
     <h4 class="mb-0">My Recent Bookings</h4>
-    <div>
+    <div class="d-flex gap-2">
         <a href="{{ url_for('user.my_bookings') }}" class="btn btn-outline-secondary btn-sm">View All Bookings</a>
         <a href="{{ url_for('user.trekking_history') }}" class="btn btn-outline-primary btn-sm">Trekking History</a>
     </div>
 </div>
 
+<div class="table-responsive">
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -89,4 +92,5 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}

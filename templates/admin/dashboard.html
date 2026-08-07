@@ -5,7 +5,7 @@
 <h2 class="mb-4">Admin Dashboard</h2>
 
 <div class="row mb-4">
-    <div class="col-md-3">
+    <div class="col-6 col-md-3 mb-3 mb-md-0">
         <div class="card text-center shadow-sm">
             <div class="card-body">
                 <h6 class="text-muted">Total Treks</h6>
@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-md-3 mb-3 mb-md-0">
         <div class="card text-center shadow-sm">
             <div class="card-body">
                 <h6 class="text-muted">Total Trekkers</h6>
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-md-3">
         <div class="card text-center shadow-sm">
             <div class="card-body">
                 <h6 class="text-muted">Total Staff</h6>
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-6 col-md-3">
         <div class="card text-center shadow-sm">
             <div class="card-body">
                 <h6 class="text-muted">Total Bookings</h6>
@@ -48,6 +48,7 @@
 </div>
 
 <h4>Recent Bookings</h4>
+<div class="table-responsive">
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -74,5 +75,6 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 {% endblock %}
