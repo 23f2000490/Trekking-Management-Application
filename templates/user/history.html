@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Trekking History{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Trekking History</h2>
+    <a href="{{ url_for('user.dashboard') }}" class="btn btn-outline-secondary btn-sm">← Back to Dashboard</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Trek Name</th>
+            <th>Location</th>
+            <th>Trek Dates</th>
+            <th>Completed On</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in completed_bookings %}
+        <tr>
+            <td>{{ booking.trek.name }}</td>
+            <td>{{ booking.trek.location }}</td>
+            <td>{{ booking.trek.start_date.strftime('%d %b') }} - {{ booking.trek.end_date.strftime('%d %b %Y') }}</td>
+            <td>{{ booking.trek.end_date.strftime('%d %b %Y') }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">No completed treks yet. Your trekking history will appear here.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

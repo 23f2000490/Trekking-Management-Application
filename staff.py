@@ -55,6 +55,12 @@ def manage_trek(trek_id):
         trek.status = new_status
         trek.available_slots = min(int(new_available_slots), trek.total_slots)
 
+        # If trek is marked Completed, auto-complete all active bookings
+        if new_status == "Completed":
+            active_bookings = Booking.query.filter_by(trek_id=trek.id, status="Booked").all()
+            for booking in active_bookings:
+                booking.status = "Completed"
+
         db.session.commit()
         flash("Trek updated successfully!", "success")
         return redirect(url_for("staff.manage_trek", trek_id=trek.id))

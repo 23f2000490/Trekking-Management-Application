@@ -7,6 +7,17 @@
     <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">← Back to Dashboard</a>
 </div>
 
+<form method="GET" class="row g-2 mb-4">
+    <div class="col-md-3">
+        <select name="status" class="form-select" onchange="this.form.submit()">
+            <option value="" {% if not status_filter %}selected{% endif %}>All Statuses</option>
+            <option value="Booked" {% if status_filter == "Booked" %}selected{% endif %}>Booked</option>
+            <option value="Cancelled" {% if status_filter == "Cancelled" %}selected{% endif %}>Cancelled</option>
+            <option value="Completed" {% if status_filter == "Completed" %}selected{% endif %}>Completed</option>
+        </select>
+    </div>
+</form>
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -28,7 +39,7 @@
         </tr>
         {% else %}
         <tr>
-            <td colspan="5" class="text-center">No bookings yet.</td>
+            <td colspan="5" class="text-center">No bookings found.</td>
         </tr>
         {% endfor %}
     </tbody>

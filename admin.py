@@ -245,5 +245,13 @@ def search():
 @login_required
 @admin_required
 def view_bookings():
-    bookings = Booking.query.order_by(Booking.booking_date.desc()).all()
-    return render_template("admin/view_bookings.html", bookings=bookings)
+    status_filter = request.args.get("status", "")
+
+    query = Booking.query
+
+    if status_filter:
+        query = query.filter_by(status=status_filter)
+
+    bookings = query.order_by(Booking.booking_date.desc()).all()
+
+    return render_template("admin/view_bookings.html", bookings=bookings, status_filter=status_filter)

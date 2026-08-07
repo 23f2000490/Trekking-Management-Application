@@ -131,3 +131,14 @@ def cancel_booking(booking_id):
 
     flash("Booking cancelled successfully.", "info")
     return redirect(url_for("user.my_bookings"))
+
+@user_bp.route("/history")
+@login_required
+@trekker_required
+def trekking_history():
+    completed_bookings = Booking.query.filter_by(
+        user_id=current_user.id,
+        status="Completed"
+    ).order_by(Booking.booking_date.desc()).all()
+
+    return render_template("user/history.html", completed_bookings=completed_bookings)
