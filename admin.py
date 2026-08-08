@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from functools import wraps
 from models import db, User, Trek, Booking, StaffProfile
 from datetime import datetime
+
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 
@@ -36,6 +37,8 @@ def dashboard():
         total_bookings=total_bookings,
         recent_bookings=recent_bookings
     )
+
+
 @admin_bp.route("/treks")
 @login_required
 @admin_required
@@ -120,10 +123,16 @@ def edit_trek(trek_id):
 @admin_required
 def delete_trek(trek_id):
     trek = Trek.query.get_or_404(trek_id)
+
+    if trek.bookings:
+        flash(f"Cannot delete '{trek.name}' — it has existing bookings. Close the trek instead to stop new bookings.", "danger")
+        return redirect(url_for("admin.manage_treks"))
+
     db.session.delete(trek)
     db.session.commit()
     flash("Trek deleted successfully!", "success")
     return redirect(url_for("admin.manage_treks"))
+
 
 @admin_bp.route("/staff")
 @login_required
@@ -177,6 +186,8 @@ def blacklist_staff(staff_id):
     db.session.commit()
     flash(f"{staff.user.name} has been blacklisted.", "warning")
     return redirect(url_for("admin.manage_staff"))
+
+
 @admin_bp.route("/users")
 @login_required
 @admin_required
@@ -205,6 +216,7 @@ def unblacklist_user(user_id):
     db.session.commit()
     flash(f"{user.name} has been un-blacklisted.", "success")
     return redirect(url_for("admin.manage_users"))
+
 
 @admin_bp.route("/search", methods=["GET"])
 @login_required
@@ -240,6 +252,7 @@ def search():
         staff_results=staff_results,
         user_results=user_results
     )
+
 
 @admin_bp.route("/bookings")
 @login_required
