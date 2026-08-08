@@ -15,11 +15,12 @@ def register():
     if request.method == "POST":
         name = request.form.get("name")
         email = request.form.get("email")
+        contact = request.form.get("contact")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
         role = request.form.get("role")  # "Staff" or "Trekker"
 
-        if not all([name, email, password, confirm_password, role]):
+        if not all([name, email, contact, password, confirm_password, role]):
             flash("All fields are required.", "danger")
             return redirect(url_for("auth.register"))
 
@@ -35,6 +36,7 @@ def register():
         new_user = User(
             name=name,
             email=email,
+            contact=contact,
             role=role,
             is_approved=True if role == "Trekker" else False
         )
@@ -94,5 +96,3 @@ def logout():
     logout_user()
     flash("You have been logged out.", "info")
     return redirect(url_for("auth.login"))
-
-
